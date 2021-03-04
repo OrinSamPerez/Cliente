@@ -4,7 +4,8 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+  overflow-x: hidden;
+  }
 
 a {
   color: inherit;
@@ -13,4 +14,53 @@ a {
 
 * {
   box-sizing: border-box;
+}
+.searchGlobal{
+  position: fixed;
+  top:20px;
+  right: 4px;
+  border: 2px solid;
+  border-radius: 5px;
+  display: flex;
+  background-color: white;
+}
+.searchIcon{
+  padding-top: 10px;
+}
+.searchGlobal input{
+  padding: 12px;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 14px;
+}
+.app-container{
+
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width:1150px){
+  .grid-global{
+    grid-template-columns: 33% 33% 33%;
+  }
+}
+@media (max-width:1070px){
+  .grid-global{
+    grid-template-columns: 32% 32% 32%;
+  }
+}
+@media (max-width:1050px){
+  .grid-global{
+    grid-template-columns: 45% 45%;
+  }
+}
+@media (max-width:587px){
+  .grid-global{
+    grid-template-columns: 90%;
+  }
+}
+@media (max-width:375px){
+  .grid-global{
+    grid-template-columns: 100%;
+  }
 }
