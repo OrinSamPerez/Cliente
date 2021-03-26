@@ -8,7 +8,7 @@
     height: 97vh;
   }
   .cart-page .cart-page-container {
-    max-width: 90%;
+    max-width: 87.5%;
     margin: 0 auto;
   }
   .cart-page .cart-page-container .bold-text {
@@ -359,4 +359,8 @@
   }
   .cart-page .order-received-col span {
     display: block;
+  }
+  .posi{
+    background: #f1f1f1;;
+    
   }

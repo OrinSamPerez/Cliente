@@ -49,15 +49,8 @@ export default function ProductImg(props) {
       <section id="card-city">
         <div id="left">
           <div id="left-bottom">
-            <h2> {props.empresa} </h2>
-            <nav id="cityguide">
-              <img
-                id="book"
-                src="https://imageshack.com/a/img924/663/WsByrZ.png"
-                alt=""
-              />
-              <a id="guide"> Ver productos </a>
-            </nav>
+           
+          
           </div>
         </div>
         <div id="right">
