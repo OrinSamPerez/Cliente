@@ -2,15 +2,15 @@ import {firebaseG} from '../Firebase/FirebaseConf'
 
 const db = firebaseG.firestore()
 
-let collectionDB = db.collection("Empresas")
+let collectionDB = db.collection("Empresa")
 
 
 const getDataFirebase = (doc) => {
     const data = doc.data();
     const { id } = doc.id;
-    const {imageLogo, imageEmpresa, nameEmpresa, numberEmpresa, direccionEmpresa}= data
+    const {imagenLogo, imagenEmpresa, nombreEmpresa, numeroEmpresa, direccionEmpresa}= data
     return {
-      imageLogo, imageEmpresa, nameEmpresa, numberEmpresa, direccionEmpresa, 
+      imagenLogo, imagenEmpresa, nombreEmpresa, numeroEmpresa, direccionEmpresa, 
     };
   };
   

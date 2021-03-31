@@ -110,7 +110,7 @@ export default function TablaShop(props){
   
   const enviarFactura = async () =>{
     sendFactura.productos = getItemsData
-    firebaseG.firestore().collection('Empresas').doc(props.id).get().then(async doc=>{
+    firebaseG.firestore().collection('Empresa').doc(props.id).get().then(async doc=>{
       if(doc.exists){
          firebaseG.auth().onAuthStateChanged(async user=>{
           if(user != null){

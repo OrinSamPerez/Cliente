@@ -45,25 +45,14 @@ export default function Navbar({ children }) {
     openOutModal(true);
   };
   const closeSeccion = () => {
-    firebaseG.auth().signOut().then(console.log("entrar"));
+    firebaseG.auth().signOut().then(    openOutModal(false) );
+    
   };
   const closeModalOut = ()=>{
     openOutModal(false);
 
   }
-  // const [Notificiaciones,setNotificiaciones ] = useState([])
-  // firebaseG.auth().onAuthStateChanged(async user =>{
-  //   if(user != null){
-  //     firebaseG.firestore().collection(user.email).doc('ListaCotizacion').collection('ListaCotizacion').get().then(function(querySnapshot) {
-  //       const docs = []
-  //       querySnapshot.forEach(function(doc) {
-  //         docs.push({...doc.data(),id:doc.id})
-  //       });
-  //       setNotificiaciones(docs)
-  //     });
-  //   }
-  
-  // })
+
   const bodyButton = (
     <div onClick={close} className="item-4 left-item">
       <li title="Salir de la aplicacion">

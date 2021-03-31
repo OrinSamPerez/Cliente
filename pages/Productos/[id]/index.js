@@ -8,6 +8,9 @@ import {
 } from "../../../Firebase/GetProducto";
 import Head from 'next/head'
 import SearchIcon from '@material-ui/icons/Search';
+import {firebaseG} from '../../../Firebase/FirebaseConf'
+const db =  firebaseG.firestore()
+const auth = firebaseG.auth()
 export default function Productos() {
   const [empresaEmail, setEmpresaEmail] = useState('')
   const [productos, setProductos] = useState([ ]);
@@ -18,7 +21,6 @@ export default function Productos() {
   const [telefono, setTelefono ] = useState('');
   const [urlActual, setUrlActual]= useState('')
   const [searchArray,setSearchArray ] = useState([])
-  const [descuento, setDescuento] = useState('')
   useEffect(() => {
     if (typeof window !== "undefined") {
       const URLLocation = window.location.href;
@@ -26,14 +28,26 @@ export default function Productos() {
       setUrlActual(urlactual)
      productosUnicosDeEmpresa(urlactual).then((doc) => {
         //Extraer el correo
-        setEmpresa(doc.data().nameEmpresa)
-        setLogo(doc.data().imageLogo)
-        setDireccion(doc.data().direccionEmpresa)
-        setTelefono(doc.data().numberEmpresa)
-        const emailEmpresa = doc.data().emailEmpresa;
-        setUrlImage(doc.data().imageEmpresa);
-        setEmpresaEmail(doc.data().emailEmpresa)
-        DataEmpresaProducto(emailEmpresa).onSnapshot(({docs})=>{
+
+        const correoEmpresa = doc.data().correoEmpresa;
+        auth.onAuthStateChanged(async user=>{
+          if(user != null){
+            db.collection(correoEmpresa).doc('datosUsuario').get().then(doc =>{                                                                                                                                                                                                                                                                                                                                              
+                      setEmpresa(doc.data().nombreEmpresa)
+                      setLogo(doc.data().imagenLogo)
+                      setDireccion(doc.data().direccionEmpresa)
+                      setTelefono(doc.data().numeroEmpresa)       
+                      setEmpresa(doc.data().nombreEmpresa)
+                      setLogo(doc.data().imagenLogo)
+                      setDireccion(doc.data().direccionEmpresa)                                       
+                      setTelefono(doc.data().numeroEmpresa)
+                      setUrlImage(doc.data().imagenEmpresa);
+                      setEmpresaEmail(doc.data().correoEmpresa)
+            })
+          }
+        })
+
+        DataEmpresaProducto(correoEmpresa).onSnapshot(({docs})=>{
           const  arrayData = docs.map(dataProducto)
           setProductos(arrayData)
   

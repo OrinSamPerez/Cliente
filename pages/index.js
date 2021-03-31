@@ -1,14 +1,29 @@
 import {useState,useEffect} from "react";
-import {listenDataItems} from '../Firebase/GetProducto'
 import SearchIcon from '@material-ui/icons/Search';
 import ProductImg from '../Components/ProductImg'
 import Head from 'next/head'
+import {firebaseG} from '../Firebase/FirebaseConf'
+const db = firebaseG.firestore()
+const auth =  firebaseG.auth()
 export default function Home() {
   const [searchArray,setSearchArray ] = useState([])
   const [ rowProducto, setRowProducto ] = useState([])
-  useEffect(()=>{
-    listenDataItems(newData=>{setRowProducto(newData)})
-  },[])
+  
+  if(rowProducto.length === 0 ){
+    auth.onAuthStateChanged(async user =>{
+      if(user != null){
+        const docs =[]
+        db.collection('Empresa').get().then(docus =>{
+            docus.forEach(doc =>{
+              docs.push({...doc.data(), id:doc.id})
+            })
+            setRowProducto(docs)
+        })
+
+      }
+    })
+  }
+
   const changeSEARCH = (e)=>{
     let palabraBuscar = e.target.value
     let numeroPalabraBuscar = palabraBuscar.length;
@@ -37,31 +52,11 @@ export default function Home() {
       {
         searchArray.length === 0?
         rowProducto.map(row=>
-          <ProductImg 
-          title={row.nombreProducto}
-          empresa={row.nameEmpresa}
-          descripcion={row.Descripcion}
-          image={row.imageEmpresa}
-          Correo={row.Correo}
-          logo={row.imageLogo}
-          Direccion={row.direccionEmpresa}
-          proveedor={row.Proveedor}
-          Numero = {row.numberEmpresa}
-          />
+          <ProductImg correo={row.correoEmpresa} id={row.id}/>
 
         )
       :searchArray.map(row=>
-          <ProductImg 
-          title={row.nombreProducto}
-          empresa={row.nameEmpresa}
-          descripcion={row.Descripcion}
-          image={row.imageEmpresa}
-          Correo={row.Correo}
-          logo={row.imageLogo}
-          Direccion={row.direccionEmpresa}
-          proveedor={row.Proveedor}
-          Numero = {row.numberEmpresa}
-          />
+          <ProductImg correo={row.correoEmpresa}  id={row.id}/>
 
         )
       }
