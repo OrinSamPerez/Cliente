@@ -14,7 +14,7 @@ export default function CardProduct(props){
     productoEmpresa:'',
     descuento:'',
     estado:'No Enviada',
-    empresaEmail: props.empresaEmail
+    empresaEmail: props.correo
     
   }
   const [values, setValues] = useState(valueInitial)
@@ -23,13 +23,13 @@ export default function CardProduct(props){
       const {name, value}=e.target
       setValues({...values, [name]:value})
     }
-
     const handleSubmit = ()=>{
       values.precio = props.Precio;
       values.urlEmpresa = props.urlActual;
       values.nameEmpresa= props.Empresa;
       values.productoEmpresa =props.nombreProducto;
       values.descuento = props.descuento
+      values.empresaEmail = props.correo
       if(values.cantidadSeleccionada >= 1 && values.cantidadSeleccionada <= 9 ){
         values.cantidadSeleccionada = (`0${values.cantidadSeleccionada}`)
       }
@@ -41,6 +41,7 @@ export default function CardProduct(props){
           if(user != null){
           await db.collection(user.email).doc('Facturas-Clientes').collection(values.urlEmpresa).doc().set(values)
           await db.collection(user.email).doc('ListaCotizacion').collection('ListaCotizacion').doc(values.urlEmpresa).set(values)
+          console.log(values)
           setValues(valueInitial)
           toast.success('¡Producto agregado 🛒!', {
             position: "top-right",
@@ -68,7 +69,7 @@ export default function CardProduct(props){
       }
     }
     return(
-      <form onSubmit={handleSubmit} > 
+      <form onSubmit={handleSubmit} >  
         <div class="wrapper-product">
             <div class="container-product">
                 <img src={props.imgProducto}/>

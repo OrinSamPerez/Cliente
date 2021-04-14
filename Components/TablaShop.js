@@ -116,7 +116,9 @@ export default function TablaShop(props){
           if(user != null){
             sendFactura.email = user.email
             if(empresaE.empresaEmail != 'undefined')
-            {   await firebaseG.firestore().collection(empresaE[0].empresaEmail).doc('Clientes-Facturas').collection('Clientes-Facturas').doc(user.email).set(sendFactura)
+            {
+              console.log(empresaE)
+                 await firebaseG.firestore().collection(empresaE[0].empresaEmail).doc('Clientes-Facturas').collection('Clientes-Facturas').doc(user.email).set(sendFactura)
                 await firebaseG.firestore().collection(user.email).doc('ListaCotizacion').collection('ListaCotizacion').doc(props.id).update({"estado":"Enviada - No Pagada"})  
                 var templateParams = {
                   Title:`El cliente con el correo ${user.email} ha realizado una cotizacion`,
@@ -125,7 +127,7 @@ export default function TablaShop(props){
                   hours:`${hora}`,
                   message:`¡PARA MAS INFORMACION REVISAR EN LA PAGINA DE CLIENTES!`,
                   reply_to:`${user.email}`,
-                  sendEmailDynamic:`${doc.data().emailEmpresa}`
+                  sendEmailDynamic:`${doc.data().emailEmpresa}` 
               };}
               else{
                 toast.info('Espere Un Momento Porfavor, Gracias Por Esperar', {
@@ -138,7 +140,7 @@ export default function TablaShop(props){
                   progress: undefined,
                   });
               }
-            emailjs.send("service_9tcef9z","template_b5dfmeb",templateParams, "user_f0BIzPQzmrASZorH7Da4S").then(result=>{
+            emailjs.send("service_dihsikd","template_b5dfmeb",templateParams, "user_f0BIzPQzmrASZorH7Da4S").then(result=>{
               toast.success('¡Se ha enviado correctamente ✅!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -158,6 +160,7 @@ export default function TablaShop(props){
                 progress: undefined,
                 });
             }), (error)=>{
+              console.log(error);
               toast.error('¡A ocurrido un error, favor reintentar mas tarde ⚠️!', {
                 position: "top-right",
                 autoClose: 5000,

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import Paper from "@material-ui/core/Paper";
 import { firebaseG } from "../Firebase/FirebaseConf";
 import Avatar from "@material-ui/core/Avatar";
@@ -12,23 +12,25 @@ export default function Shop(props) {
   const [row, setRowItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState("");
-  firebaseG.auth().onAuthStateChanged(async (user) => {
-    if (user != null) {
-      firebaseG
-        .firestore()
-        .collection(user.email)
-        .doc("ListaCotizacion")
-        .collection("ListaCotizacion")
-        .get()
-        .then(function (querySnapshot) {
-          const docs = [];
-          querySnapshot.forEach(function (doc) {
-            docs.push({ ...doc.data(), id: doc.id });
+  useEffect(()=>{
+    firebaseG.auth().onAuthStateChanged(async (user) => {
+      if (user != null) {
+        firebaseG
+          .firestore()
+          .collection(user.email)
+          .doc("ListaCotizacion")
+          .collection("ListaCotizacion")
+          .get()
+          .then(function (querySnapshot) {
+            const docs = [];
+            querySnapshot.forEach(function (doc) {
+              docs.push({ ...doc.data(), id: doc.id });
+            });
+            setRowItems(docs);
           });
-          setRowItems(docs);
-        });
-    }
-  });
+      }
+    });
+  },[])
   const close = () => {
     setOpen(false);
   };

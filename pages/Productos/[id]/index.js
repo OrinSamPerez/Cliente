@@ -42,7 +42,7 @@ export default function Productos() {
                       setDireccion(doc.data().direccionEmpresa)                                       
                       setTelefono(doc.data().numeroEmpresa)
                       setUrlImage(doc.data().imagenEmpresa);
-                      setEmpresaEmail(doc.data().correoEmpresa)
+                      setEmpresaEmail(correoEmpresa)
             })
           }
         })
@@ -56,7 +56,6 @@ export default function Productos() {
       });
     }
   }, []);
-
   const changeSEARCH = (e)=>{
     let palabraBuscar = e.target.value
     let numeroPalabraBuscar = palabraBuscar.length;
@@ -90,7 +89,7 @@ export default function Productos() {
           productos.map(producto =>
           <CardProduct 
             Empresa={Empresa}
-            empresaEmail={empresaEmail}
+            correo={empresaEmail}
             nombreProducto={producto.nombreProducto}
             Precio = {producto.precioVentaProducto}
             imgProducto= {producto.imageProducto}
@@ -103,7 +102,7 @@ export default function Productos() {
         :searchArray.map(producto =>
           <CardProduct 
             Empresa={Empresa}
-            empresaEmail={empresaEmail}
+            correo={empresaEmail}
             nombreProducto={producto.nombreProducto}
             Precio = {producto.precioVentaProducto}
             imgProducto= {producto.imageProducto}
