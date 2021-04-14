@@ -24,6 +24,8 @@ export default function TablaShop(props){
       horaActual:`${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`,
       productos:[],
       email:'',
+      Total:'',
+      subTotal:'',
     }
     const [ sendFactura, setSendFactura ] = useState(valueSend)
 
@@ -109,6 +111,8 @@ export default function TablaShop(props){
 }
   
   const enviarFactura = async () =>{
+    sendFactura.Total = document.getElementById('total').value
+    sendFactura.subTotal = document.getElementById('subtotal').values
     sendFactura.productos = getItemsData
     firebaseG.firestore().collection('Empresa').doc(props.id).get().then(async doc=>{
       if(doc.exists){
@@ -117,7 +121,6 @@ export default function TablaShop(props){
             sendFactura.email = user.email
             if(empresaE.empresaEmail != 'undefined')
             {
-              console.log(empresaE)
                  await firebaseG.firestore().collection(empresaE[0].empresaEmail).doc('Clientes-Facturas').collection('Clientes-Facturas').doc(user.email).set(sendFactura)
                 await firebaseG.firestore().collection(user.email).doc('ListaCotizacion').collection('ListaCotizacion').doc(props.id).update({"estado":"Enviada - No Pagada"})  
                 var templateParams = {
@@ -303,8 +306,8 @@ export default function TablaShop(props){
      <br></br>
                
                 
-     <h5 className="bold-text">SubTotal: <span>RD$ {SUBTOTAL}</span></h5>
-     <h5 className="bold-text">Total: <span>RD$ {TOTAL}</span></h5>
+     <h5 id="subtotal" className="bold-text">SubTotal: <span>RD$ {SUBTOTAL}</span></h5>
+     <h5 id="total" className="bold-text">Total: <span>RD$ {TOTAL}</span></h5>
      
      <h5><span className="bold-text"></span></h5>
        <Button onClick={reporte} variant="outlined" color="secondary" >
