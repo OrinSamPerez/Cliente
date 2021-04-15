@@ -49,7 +49,7 @@ export default function Shop(props) {
           <Button onClick={close} variant="contained" color="secondary">
             Ocultar Ventana
           </Button>
-          <TablaShop id={currentId} buttonClose={close} buttonOpen={openM} />
+          <TablaShop id={currentId} buttonClose={close} buttonOpen={openM}  />
         </>
       </Modal>
       <Head>
