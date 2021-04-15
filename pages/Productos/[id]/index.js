@@ -24,7 +24,7 @@ export default function Productos() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const URLLocation = window.location.href;
-      let urlactual = URLLocation.slice(32);
+      let urlactual = URLLocation.slice(43);
       setUrlActual(urlactual)
      productosUnicosDeEmpresa(urlactual).then((doc) => {
         //Extraer el correo
