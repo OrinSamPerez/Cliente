@@ -121,7 +121,7 @@ export default function TablaShop(props){
             sendFactura.email = user.email
             if(empresaE.empresaEmail != 'undefined')
             {
-                 await firebaseG.firestore().collection(empresaE[0].empresaEmail).doc('Clientes-Facturas').collection('Clientes-Facturas').doc(user.email).set(sendFactura)
+                 await firebaseG.firestore().collection(empresaE[0].empresaEmail).doc('Clientes-Facturas').collection('Clientes-Facturas').doc().set(sendFactura)
                 await firebaseG.firestore().collection(user.email).doc('ListaCotizacion').collection('ListaCotizacion').doc(props.id).update({"estado":"Enviada - No Pagada"})  
                 var templateParams = {
                   Title:`El cliente con el correo ${user.email} ha realizado una cotizacion`,
